@@ -28,14 +28,11 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
               flexDirection: "column",
               gap: "10px",
               width: "387px",
-              height: "381px"
+              height: "381px",
             }}
           >
-            <img
-              src={item.video.thumbnails[0].url}
-              alt={item.video.title}
-            />
-            <Typography variant="h5" >{item.video.title}</Typography>
+            <img src={item.video.thumbnails[0].url} alt={item.video.title} />
+            <Typography variant="h5">{item.video.title}</Typography>
             <Typography variant="h6">{item.video.author.title}</Typography>
           </a>
         ))}

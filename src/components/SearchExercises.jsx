@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Stack, TextField, Button } from "@mui/material";
-import { fetchData,fetchBodyPartData } from "../utils/fetchData";
+import { fetchData, fetchBodyPartData } from "../utils/fetchData";
 import HorizontalScrollBar from "./HorizontalScrollBar";
-const SearchExercises = ({setExercises,bodyPart,setBodyPart}) => {
-    const [search,setSearch]=useState("")
-    
-    const [bodyParts,setBodyParts]=useState([])
-    const handleSearch=async()=>{
+const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
+  const [search, setSearch] = useState("");
 
-        if(search)
-        {
-           const data=await fetchData()
-           const filteredData=data.filter((exercise)=>(exercise.name.toLowerCase().includes(search)
-           || exercise.target.toLowerCase().includes(search)
-           || exercise.equipment.toLowerCase().includes(search)
-           || exercise.bodyPart.toLowerCase().includes(search)
-           ))
-           setSearch("")
-           setExercises([...filteredData])
-           
-        }
+  const [bodyParts, setBodyParts] = useState([]);
+  const handleSearch = async () => {
+    if (search) {
+      const data = await fetchData();
+      const filteredData = data.filter(
+        (exercise) =>
+          exercise.name.toLowerCase().includes(search) ||
+          exercise.target.toLowerCase().includes(search) ||
+          exercise.equipment.toLowerCase().includes(search) ||
+          exercise.bodyPart.toLowerCase().includes(search)
+      );
+      setSearch("");
+      setExercises([...filteredData]);
     }
-   useEffect(()=>{
-    const fetchBodyPart=async()=>{
-    const data=await fetchBodyPartData()
-    setBodyParts(["all",...data])
-    }
-    fetchBodyPart()
-   },[])
+  };
+  useEffect(() => {
+    const fetchBodyPart = async () => {
+      const data = await fetchBodyPartData();
+      setBodyParts(["all", ...data]);
+    };
+    fetchBodyPart();
+  }, []);
 
   return (
     <Stack alignItems="center" justifyContent="center" p="20px" mt="200px">
@@ -68,15 +67,19 @@ const SearchExercises = ({setExercises,bodyPart,setBodyPart}) => {
             textTransform: "none",
             position: "absolute",
             right: "0px",
-
           }}
           onClick={handleSearch}
         >
           Search
         </Button>
       </Box>
-      <Box sx={{width:"100%",position:"relative",p:"20px"}}>
-       <HorizontalScrollBar data={bodyParts} bodyPart={bodyPart} setBodyPart={setBodyPart} isBodyParts="true"/>
+      <Box sx={{ width: "100%", position: "relative", p: "20px" }}>
+        <HorizontalScrollBar
+          data={bodyParts}
+          bodyPart={bodyPart}
+          setBodyPart={setBodyPart}
+          isBodyParts="true"
+        />
       </Box>
     </Stack>
   );
